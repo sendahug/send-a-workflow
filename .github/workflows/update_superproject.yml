@@ -1,0 +1,31 @@
+# Updates the superproject repository when a change is made to a submodule
+name: Update Superproject
+
+on:
+  workflow_call:
+    inputs:
+      branch:
+        type: string
+        description: 'Branch to update'
+        required: true
+        default: 'live'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone superproject repo
+        run: git clone --recursive https://github.com/sendahug/sendahug
+
+      - name: Change branch
+        run: git checkout ${{ inputs.branch }}
+
+      - name: Update frontend
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git submodule update --remote --merge
+
+      - name: Push updates
+        run: git push origin ${{ inputs.branch }}
