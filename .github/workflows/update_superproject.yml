@@ -15,8 +15,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clone superproject repo
-        run: git clone --recursive https://github.com/sendahug/sendahug
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: sendahug/sendahug
+          submodules: recursive
 
       - name: Change directory
         run: |
