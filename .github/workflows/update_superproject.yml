@@ -19,10 +19,14 @@ jobs:
         run: git clone --recursive https://github.com/sendahug/sendahug
 
       - name: Change directory
-        run: cd sendahug
+        run: |
+          cd sendahug
+          ls
 
       - name: Change branch
-        run: git checkout ${{ inputs.branch }}
+        run: |
+          git fetch origin ${{ inputs.branch }}
+          git checkout ${{ inputs.branch }}
 
       - name: Update frontend
         run: |
