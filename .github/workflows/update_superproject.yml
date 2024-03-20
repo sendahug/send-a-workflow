@@ -35,6 +35,8 @@ jobs:
       - name: Update the submodules
         run: |
           git submodule update --remote --merge
+          git add .
+          git commit -m 'Updated submodules'
 
       - name: Push updates
         run: git push origin ${{ inputs.branch }}
