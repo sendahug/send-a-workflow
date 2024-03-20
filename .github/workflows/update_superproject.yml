@@ -20,6 +20,7 @@ jobs:
         with:
           repository: sendahug/sendahug
           submodules: recursive
+          fetch-depth: 0
 
       - name: Change branch
         run: |
