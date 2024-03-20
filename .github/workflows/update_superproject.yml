@@ -21,11 +21,6 @@ jobs:
           repository: sendahug/sendahug
           submodules: recursive
 
-      - name: Change directory
-        run: |
-          cd sendahug
-          ls
-
       - name: Change branch
         run: |
           git fetch origin ${{ inputs.branch }}
