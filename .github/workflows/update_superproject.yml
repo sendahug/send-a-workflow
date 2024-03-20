@@ -27,6 +27,8 @@ jobs:
           fetch-depth: 0
           ssh-key: ${{ secrets.BOT_SSH_KEY }}
 
+      - run: git remote set-url origin ${{ inputs.ssh_url }}
+
       - name: Change branch
         run: |
           git fetch origin ${{ inputs.branch }}
