@@ -31,6 +31,8 @@ jobs:
       - name: Update the submodules
         run: |
           git submodule update --remote --merge
+          git config --global user.email "sendahugcom@gmail.com"
+          git config --global user.name "Send A Hug Bot"
           git add .
           git commit -m 'Updated submodules'
 
