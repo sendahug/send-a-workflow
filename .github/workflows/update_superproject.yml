@@ -9,10 +9,6 @@ on:
         description: 'Branch to update'
         required: true
         default: 'live'
-      ssh_url:
-        type: string
-        description: 'SSH URL of the repository'
-        required: true
 
 jobs:
   build:
