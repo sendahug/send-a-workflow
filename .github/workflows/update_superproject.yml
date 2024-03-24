@@ -1,0 +1,40 @@
+# Updates the superproject repository when a change is made to a submodule
+name: Update Superproject
+
+on:
+  workflow_call:
+    inputs:
+      branch:
+        type: string
+        description: 'Branch to update'
+        required: true
+        default: 'live'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: sendahug/sendahug
+          submodules: recursive
+          fetch-depth: 0
+          ssh-key: ${{ secrets.BOT_SSH_KEY }}
+
+      - name: Change branch
+        run: |
+          git fetch origin ${{ inputs.branch }}
+          git checkout ${{ inputs.branch }}
+
+      - name: Update the submodules
+        run: |
+          git submodule update --remote --merge
+          git config --global user.email "sendahugcom@gmail.com"
+          git config --global user.name "Send A Hug Bot"
+          git add .
+          git commit -m 'Updated submodules'
+
+      - name: Push updates
+        run: git push origin ${{ inputs.branch }}
