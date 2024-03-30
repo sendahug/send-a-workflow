@@ -31,12 +31,13 @@ jobs:
 
       - run: python3 update_changelog.py
 
-      - name: Update the submodules
+      - name: Update the changelog & push the update
         run: |
-          git config --global user.email "sendahugcom@gmail.com"
-          git config --global user.name "Send A Hug Bot"
-          git add .
-          git commit -m 'Updated the Changelog.'
-
-      - name: Push updates
-        run: git push origin dev
+          if [ -n "$(git status --porcelain)" ];
+          then
+            git config --global user.email "sendahugcom@gmail.com"
+            git config --global user.name "Send A Hug Bot"
+            git add .
+            git commit -m 'Updated the Changelog.'
+            git push --no-verify
+          fi
