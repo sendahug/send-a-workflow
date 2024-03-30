@@ -39,4 +39,4 @@ jobs:
           git commit -m 'Updated the Changelog.'
 
       - name: Push updates
-        run: git push origin dev
+        run: git push origin feature/automate_changelog
