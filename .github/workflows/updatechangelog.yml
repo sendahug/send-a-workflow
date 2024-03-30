@@ -23,7 +23,7 @@ jobs:
         with:
           ssh-key: ${{ secrets.BOT_SSH_KEY }}
       
-      - run: curl https://raw.githubusercontent.com/sendahug/send-a-workflow/feature/changelog_update/update_changelog.py -o update_changelog.py
+      - run: curl https://raw.githubusercontent.com/sendahug/send-a-workflow/main/update_changelog.py -o update_changelog.py
 
       - uses: actions/setup-python@v2
         with:
@@ -39,4 +39,4 @@ jobs:
           git commit -m 'Updated the Changelog.'
 
       - name: Push updates
-        run: git push origin feature/automate_changelog
+        run: git push origin dev
