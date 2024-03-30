@@ -29,8 +29,9 @@ jobs:
         with:
           repository: sendahug/send-a-workflow
           ssh-key: ${{ secrets.BOT_SSH_KEY }}
+          path: send-a-workflow
       
-      - run: mv ${GITHUB_WORKSPACE}/update_changelog.py ${GITHUB_WORKSPACE}/${{ inputs.repository }}
+      - run: mv send-a-workflow/send-a-workflow/update_changelog.py ${GITHUB_WORKSPACE}/${{ inputs.repository }}
 
       - uses: actions/setup-python@v2
         with:
