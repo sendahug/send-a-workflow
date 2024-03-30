@@ -7,6 +7,10 @@ on:
         description: 'The base repository URL'
         required: true
         type: string
+      repository:
+        description: 'The repository to update the changelog for'
+        required: true
+        type: string
 
 env:
   BASE_REPO_URL: ${{ inputs.base_repo_url }}
@@ -15,9 +19,18 @@ jobs:
   update_changelog:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ssh-key: ${{ secrets.BOT_SSH_KEY }}
+
+      # From https://stackoverflow.com/a/74123003
+      - name: Checkout reusable workflow dir
+        uses: actions/checkout@v3
+        with:
+          repository: sendahug/send-a-workflow
+          ssh-key: ${{ secrets.BOT_SSH_KEY }}
+      
+      - run: mv ${GITHUB_WORKSPACE}/update_changelog.py ${GITHUB_WORKSPACE}/${{ inputs.repository }}
 
       - uses: actions/setup-python@v2
         with:
