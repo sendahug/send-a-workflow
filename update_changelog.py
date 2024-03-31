@@ -163,5 +163,10 @@ def update_current_changelog(
 
 if __name__ == "__main__":
     files = glob(os.path.join(CHANGES_DIR, "*.json"))
+
+    if len(files) == 0:
+        print("No changes to add to the changelog.")
+        exit(0)
+
     changes = get_formatted_changes(files=files)
     update_current_changelog(changes, change_files=files)
