@@ -30,8 +30,6 @@ jobs:
         with:
           python-version: 3.11
 
-      - run: ls
-
       - run: python3 update_changelog.py
 
       - name: Update the changelog & push the update
