@@ -38,6 +38,7 @@ jobs:
           then
             git config --global user.email "sendahugcom@gmail.com"
             git config --global user.name "Send A Hug Bot"
+            rm update_changelog.py
             git add .
             git commit -m 'Updated the Changelog.'
             git push --no-verify
