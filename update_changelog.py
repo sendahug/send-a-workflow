@@ -118,7 +118,8 @@ def update_current_changelog(
     # If there are no entries for today, we add them at the beginning
     if current_date_index == -1:
         current_index = 4
-        next_index = 5
+        next_index = 4
+        updated_changelog = current_changelog[:current_index]
 
     # Otherwise, we need to get all the existing changes for today
     # so we can overwrite the section with the previous AND the new
@@ -146,10 +147,11 @@ def update_current_changelog(
             if line.startswith("- "):
                 changes_to_add[current_section].insert(0, line)
 
+        updated_changelog = current_changelog[: current_index - 2]
+
     # Finally, now that we have everything in order, we convert today's
     # section into a list of strings and rebuild the changelog.
     today_section = generate_changelog_dated_section(changes_to_add)
-    updated_changelog = current_changelog[: current_index - 2]
     updated_changelog.extend([*today_section, *current_changelog[next_index:]])
 
     # Writes the updated changelog back to the file.
