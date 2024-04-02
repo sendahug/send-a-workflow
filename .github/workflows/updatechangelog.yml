@@ -1,0 +1,45 @@
+name: Update Changelog
+
+on:
+  workflow_call:
+    inputs:
+      base_repo_url:
+        description: 'The base repository URL'
+        required: true
+        type: string
+      repository:
+        description: 'The repository to update the changelog for'
+        required: true
+        type: string
+
+env:
+  BASE_REPO_URL: ${{ inputs.base_repo_url }}
+
+jobs:
+  update_changelog:
+    runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]' && github.actor != 'SHugBot'
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ssh-key: ${{ secrets.BOT_SSH_KEY }}
+      
+      - run: curl https://raw.githubusercontent.com/sendahug/send-a-workflow/main/update_changelog.py -o update_changelog.py
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+
+      - run: python3 update_changelog.py
+
+      - name: Update the changelog & push the update
+        run: |
+          if [ -n "$(git status --porcelain)" ];
+          then
+            git config --global user.email "sendahugcom@gmail.com"
+            git config --global user.name "Send A Hug Bot"
+            rm update_changelog.py
+            git add .
+            git commit -m 'Updated the Changelog.'
+            git push --no-verify
+          fi
