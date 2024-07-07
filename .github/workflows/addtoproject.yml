@@ -8,7 +8,7 @@ jobs:
     name: Add issue to project
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/add-to-project@v1.0.1
+      - uses: actions/add-to-project@v1.0.2
         with:
           # Add to the primary project
           project-url: https://github.com/orgs/sendahug/projects/7
